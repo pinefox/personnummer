@@ -100,7 +100,9 @@ final class Personnummer implements PersonnummerInterface
     {
         $parts = $this->parts;
 
-        if ($longFormat) {
+        if($this->isSllReserve) {
+            $format = '99%1$s%2$s%6$s%7$s';
+        } else if ($longFormat) {
             $format = '%1$s%2$s%3$s%4$s%6$s%7$s';
         } else {
             $format = '%2$s%3$s%4$s%5$s%6$s%7$s';
