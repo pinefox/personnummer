@@ -304,7 +304,7 @@ final class Personnummer implements PersonnummerInterface
     public function __construct(string $ssn, array $options = [])
     {
         $ssn = $this->checkIfReserveNumber($ssn);
-
+        
         $this->options = $this->parseOptions($options);
 
         if ($this->isSllReserveNumber()) {
@@ -347,6 +347,10 @@ final class Personnummer implements PersonnummerInterface
         $day = intval($parts['day']);
         if ($this->isCoordinationNumber()) {
             $day -= 60;
+        }
+
+        if ($this->isSllReserveNumber()) {
+            return -1;
         }
 
         $birthday = new DateTime(sprintf('%s%s-%s-%d', $parts['century'], $parts['year'], $parts['month'], $day));
@@ -415,13 +419,15 @@ final class Personnummer implements PersonnummerInterface
 
             $this->isVgrReserve = $validCheck && $validNumParts;
         }
-
+        
         // It could still be a SLL reserve number
-        if ($validCheck === false && $this->options['allowSllReserveNumber'] && $this->isSllReserveNumber()) {
+        if ($this->isSllReserveNumber() && $this->options['allowSllReserveNumber']) {
             $checkAgain = $this->parts['century'] . $this->parts['year'] . $this->parts['num'];
             $validCheck = self::luhn($checkAgain) === (int)$parts['check'];
-            $validNumParts = true;
-            $validDate = true;
+
+            if ($validCheck) {
+                $validNumParts = $this->validateNumPartsForSll();
+            }
         }
 
         return $validDate && $validCheck && $validNumParts;
@@ -451,6 +457,20 @@ final class Personnummer implements PersonnummerInterface
         }
 
         return false;
+    }
+
+    /**
+     * Make sure the the issuance date of the sll-reserve number is not greater than the current year + 1.
+     * 
+     * @return bool
+     */
+    private function validateNumPartsForSll(): bool
+    {
+        $parts = $this->parts;
+        $now = new DateTime();
+
+        return (int)($parts['fullYear']) <= $now->format('Y') + 1
+                && (int)($parts['fullYear']) > 1870;
     }
 
     private function setReserveNumberCharForVgr(): void
