@@ -124,9 +124,9 @@ class PersonnummerTest extends TestCase
 
     public function testSllReserveNumbersForMales()
     {
-        $female = new Personnummer('992004920019');
-        $this->assertEquals('992004920019', $female->format());
-        $this->assertTrue($female->isSllReserveNumber());
+        $male = new Personnummer('992004920019');
+        $this->assertEquals('992004920019', $male->format());
+        $this->assertTrue($male->isSllReserveNumber());
 
         // Wrong check digit:
         $this->assertThrows(PersonnummerException::class, function () {
@@ -134,7 +134,7 @@ class PersonnummerTest extends TestCase
         });
 
         // Wrong gender:
-        $this->assertFalse($female->isFemale());
+        $this->assertFalse($male->isFemale());
     }
 
     public function testSllAge()
