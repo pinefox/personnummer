@@ -135,6 +135,7 @@ class PersonnummerTest extends TestCase
 
         // Wrong gender:
         $this->assertFalse($male->isFemale());
+        $this->assertTrue($male->isMale());
     }
 
     public function testSllAge()
@@ -156,6 +157,7 @@ class PersonnummerTest extends TestCase
 
         // Wrong gender:
         $this->assertFalse($female->isMale());
+        $this->assertTrue($female->isFemale());
     }
 
     public function testSllReserveNumberAge() {
