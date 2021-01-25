@@ -29,7 +29,7 @@ class PersonnummerTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$testdataList       = json_decode(file_get_contents('https://raw.githubusercontent.com/personnummer/meta/master/testdata/list.json'), true); // phpcs:ignore
+        self::$testdataList = json_decode(file_get_contents('https://raw.githubusercontent.com/personnummer/meta/master/testdata/list.json'), true); // phpcs:ignore
         self::$testdataStructured = json_decode(file_get_contents('https://raw.githubusercontent.com/personnummer/meta/master/testdata/structured.json'), true); // phpcs:ignore
     }
 
@@ -160,7 +160,8 @@ class PersonnummerTest extends TestCase
         $this->assertTrue($female->isFemale());
     }
 
-    public function testSllReserveNumberAge() {
+    public function testSllReserveNumberAge()
+    {
         // Future SLL number (year 2103)
         $this->assertThrows(PersonnummerException::class, function () {
             new Personnummer('992103920019');
@@ -323,14 +324,14 @@ class PersonnummerTest extends TestCase
 
     public function testAgeOnBirthday()
     {
-        $date     = (new DateTime())->modify('-30 years midnight');
+        $date = (new DateTime())->modify('-30 years midnight');
         $expected = intval($date->diff(new DateTime())->format('%y'));
 
         $ssn = $date->format('Ymd') . '999';
 
         // Access private luhn method
         $reflector = new ReflectionClass(Personnummer::class);
-        $method    = $reflector->getMethod('luhn');
+        $method = $reflector->getMethod('luhn');
         $method->setAccessible(true);
         $ssn .= $method->invoke(null, substr($ssn, 2));
 
@@ -353,14 +354,14 @@ class PersonnummerTest extends TestCase
     {
         // Parts, as position and length
         $separatedLongParts = [
-            'century'  => [0, 2],
-            'year'     => [2, 2],
+            'century' => [0, 2],
+            'year' => [2, 2],
             'fullYear' => [0, 4],
-            'month'    => [4, 2],
-            'day'      => [6, 2],
-            'sep'      => [8, 1],
-            'num'      => [9, 3],
-            'check'    => [12, 1],
+            'month' => [4, 2],
+            'day' => [6, 2],
+            'sep' => [8, 1],
+            'num' => [9, 3],
+            'check' => [12, 1],
         ];
         foreach (self::$testdataList as $testdata) {
             if ($testdata['valid']) {
