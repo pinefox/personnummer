@@ -55,6 +55,9 @@ class PersonnummerTest extends TestCase
         $this->assertThrows(PersonnummerException::class, function () {
             new Personnummer('992004920019', ['allowSllReserveNumber' => false]);
         });
+        $this->assertThrows(PersonnummerException::class, function () {
+            new Personnummer('820202-R620', ['allowRvbReserveNumber' => false]);
+        });
         $this->assertError(function () {
             new Personnummer('1212121212', ['invalidOption' => true]);
         }, E_USER_WARNING);
