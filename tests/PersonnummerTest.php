@@ -201,6 +201,110 @@ class PersonnummerTest extends TestCase
         });
     }
 
+    public function testRvbReserveNumberForFemaleBorn20thCentury()
+    {
+        // This is valid female reserve number, someone born in 1982:
+        $female = new Personnummer('820202-R620');
+        $this->assertEquals('820202-R620', $female->format());
+        $this->assertEquals('19820202-R620', $female->format(true));
+        $this->assertTrue($female->isRvbReserveNumber());
+        $this->assertTrue($female->isFemale());
+        $this->assertFalse($female->isMale());
+        $this->assertEquals(1982, date('Y') - $female->getAge());
+
+        // Born in 19th century should have digits in, YYMMDD-R6NN or YYMMDD-R9NN:
+        foreach ([1, 2, 3, 4, 5, 7, 8] as $digit) {
+            $this->assertThrows(PersonnummerException::class, function () use ($digit) {
+                new Personnummer("820202-R{$digit}20");
+            });
+        }
+
+        // Females should have an even number after R:
+        foreach ([21, 23, 25, 27, 29] as $digits) {
+            $this->assertThrows(PersonnummerException::class, function () use ($digits) {
+                new Personnummer("820202-R{$digits}0");
+            });
+        }
+    }
+
+    public function testRvbReserveNumberForMaleBorn20thCentury()
+    {
+        // This is valid male reserve number, someone born in 1982:
+        $male = new Personnummer('820202-R630');
+        $this->assertEquals('820202-R630', $male->format());
+        $this->assertEquals('19820202-R630', $male->format(true));
+        $this->assertTrue($male->isRvbReserveNumber());
+        $this->assertTrue($male->isMale());
+        $this->assertFalse($male->isFemale());
+        $this->assertEquals(1982, date('Y') - $male->getAge());
+
+        // Born in 19th century should have digits in, YYMMDD-R6NN or YYMMDD-R9NN:
+        foreach ([1, 2, 3, 4, 5, 7, 8] as $digit) {
+            $this->assertThrows(PersonnummerException::class, function () use ($digit) {
+                new Personnummer("820202-R{$digit}30");
+            });
+        }
+
+        // Males should have an odd number after R:
+        foreach ([20, 22, 24, 26, 28] as $digits) {
+            $this->assertThrows(PersonnummerException::class, function () use ($digits) {
+                new Personnummer("820202-R{$digits}0");
+            });
+        }
+    }
+
+    public function testRvbReserveNumberForFemaleBorn21thCentury()
+    {
+        // This is valid female reserve number, someone born in 2002:
+        $female = new Personnummer('020202-R220');
+        $this->assertEquals('020202-R220', $female->format());
+        $this->assertEquals('20020202-R220', $female->format(true));
+        $this->assertTrue($female->isRvbReserveNumber());
+        $this->assertTrue($female->isFemale());
+        $this->assertFalse($female->isMale());
+        $this->assertEquals(2002, date('Y') - $female->getAge());
+
+        // Born in 21th century should have digits in, YYMMDD-R2NN:
+        foreach ([1, 3, 4, 5, 6, 7, 8, 9] as $digit) {
+            $this->assertThrows(PersonnummerException::class, function () use ($digit) {
+                new Personnummer("020202-R{$digit}20");
+            });
+        }
+
+        // Females should have an even number after R:
+        foreach ([21, 23, 25, 27, 29] as $digits) {
+            $this->assertThrows(PersonnummerException::class, function () use ($digits) {
+                new Personnummer("020202-R{$digits}0");
+            });
+        }
+    }
+
+    public function testRvbReserveNumberForMaleBorn21thCentury()
+    {
+        // This is valid male reserve number, someone born in 2002:
+        $male = new Personnummer('020202-R230');
+        $this->assertEquals('020202-R230', $male->format());
+        $this->assertEquals('20020202-R230', $male->format(true));
+        $this->assertTrue($male->isRvbReserveNumber());
+        $this->assertTrue($male->isMale());
+        $this->assertFalse($male->isFemale());
+        $this->assertEquals(2002, date('Y') - $male->getAge());
+
+        // Born in 21th century should have digits in, YYMMDD-R2NN:
+        foreach ([1, 3, 4, 5, 6, 7, 8, 9] as $digit) {
+            $this->assertThrows(PersonnummerException::class, function () use ($digit) {
+                new Personnummer("020202-R{$digit}30");
+            });
+        }
+
+        // Males should have an odd number after R:
+        foreach ([20, 22, 24, 26, 28] as $digits) {
+            $this->assertThrows(PersonnummerException::class, function () use ($digits) {
+                new Personnummer("820202-R{$digits}0");
+            });
+        }
+    }
+
     public function testParseReserveNumber()
     {
         $this->assertEquals(new Personnummer('000101-R220'), Personnummer::parse('000101-R220'));
