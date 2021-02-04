@@ -209,7 +209,7 @@ class PersonnummerTest extends TestCase
         // This is valid female reserve number, someone born in 1982:
         $female = new Personnummer('820202-R620');
         $this->assertEquals('820202-R620', $female->format());
-        $this->assertEquals('19820202-R620', $female->format(true));
+        $this->assertEquals('19820202R620', $female->format(true));
         $this->assertTrue($female->isRvbReserveNumber());
         $this->assertTrue($female->isFemale());
         $this->assertFalse($female->isMale());
@@ -235,7 +235,7 @@ class PersonnummerTest extends TestCase
         // This is valid male reserve number, someone born in 1982:
         $male = new Personnummer('820202-R630');
         $this->assertEquals('820202-R630', $male->format());
-        $this->assertEquals('19820202-R630', $male->format(true));
+        $this->assertEquals('19820202R630', $male->format(true));
         $this->assertTrue($male->isRvbReserveNumber());
         $this->assertTrue($male->isMale());
         $this->assertFalse($male->isFemale());
@@ -261,7 +261,7 @@ class PersonnummerTest extends TestCase
         // This is valid female reserve number, someone born in 2002:
         $female = new Personnummer('020202-R220');
         $this->assertEquals('020202-R220', $female->format());
-        $this->assertEquals('20020202-R220', $female->format(true));
+        $this->assertEquals('20020202R220', $female->format(true));
         $this->assertTrue($female->isRvbReserveNumber());
         $this->assertTrue($female->isFemale());
         $this->assertFalse($female->isMale());
@@ -287,7 +287,7 @@ class PersonnummerTest extends TestCase
         // This is valid male reserve number, someone born in 2002:
         $male = new Personnummer('020202-R230');
         $this->assertEquals('020202-R230', $male->format());
-        $this->assertEquals('20020202-R230', $male->format(true));
+        $this->assertEquals('20020202R230', $male->format(true));
         $this->assertTrue($male->isRvbReserveNumber());
         $this->assertTrue($male->isMale());
         $this->assertFalse($male->isFemale());
