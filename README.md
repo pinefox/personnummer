@@ -59,13 +59,13 @@ composer require pinefox/personnummer
 When a personnummer is invalid a PersonnummerException is thrown.
 
 ## Options
-| Option                  | Type | Default | Description                 |
-| ------------------------|:-----|:--------|:---------------------------:|
-| allowCoordinationNumber | bool | true    | Accept coordination numbers |``
-| allowTNumber            | bool | true    | Accept reserve numbers      |
-| allowVgrReserveNumber   | bool | true    | Accept VGR reserve numbers  |
-| allowSllReserveNumber   | bool | true    | Accept SLL reserve numbers  |
-| allowRvbReserveNumber   | bool | true    | Accept RVB reserve numbers  |
+| Option                  | Type | Default | Description                                                   |
+| ------------------------|:-----|:--------|:-------------------------------------------------------------:|
+| allowCoordinationNumber | bool | true    | Accept coordination numbers.                                  |
+| allowTNumber            | bool | true    | Accept reserve numbers with single character in 9th position. |
+| allowVgrReserveNumber   | bool | true    | Accept VGR reserve numbers (see specification).               |
+| allowSllReserveNumber   | bool | true    | Accept SLL reserve numbers (see specification).               |
+| allowRvbReserveNumber   | bool | true    | Accept RVB reserve numbers (see specification).               |
 
 ## Examples
 
