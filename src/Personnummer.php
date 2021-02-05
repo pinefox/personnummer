@@ -46,7 +46,7 @@ final class Personnummer implements PersonnummerInterface
     /**
      *
      * @param string $ssn
-     * @param array  $options
+     * @param array $options
      *
      * @return PersonnummerInterface
      *
@@ -68,7 +68,7 @@ final class Personnummer implements PersonnummerInterface
             return false;
         }
 
-        $parts       = $this->parts;
+        $parts = $this->parts;
         $genderDigit = substr($parts['num'], -1);
 
         return (bool)($genderDigit % 2);
@@ -175,7 +175,7 @@ final class Personnummer implements PersonnummerInterface
                 $baseYear = date('Y', strtotime('-100 years'));
             } else {
                 $parts['sep'] = '-';
-                $baseYear     = date('Y');
+                $baseYear = date('Y');
             }
             $parts['century'] = substr(($baseYear - (($baseYear - $parts['year']) % 100)), 0, 2);
         }
@@ -211,7 +211,7 @@ final class Personnummer implements PersonnummerInterface
                 $baseYear = date('Y', strtotime('-100 years'));
             } else {
                 $parts['sep'] = '-';
-                $baseYear     = date('Y');
+                $baseYear = date('Y');
             }
             $parts['century'] = substr(($baseYear - (($baseYear - $parts['year']) % 100)), 0, 2);
         }
@@ -299,7 +299,7 @@ final class Personnummer implements PersonnummerInterface
      * Personnummer constructor.
      *
      * @param string $ssn
-     * @param array  $options
+     * @param array $options
      *
      * @throws PersonnummerException When $ssn is unparsable or invalid
      */
@@ -315,7 +315,7 @@ final class Personnummer implements PersonnummerInterface
             $this->parts = self::getParts($ssn);
         }
 
-        if (! $this->isValid()) {
+        if (!$this->isValid()) {
             throw new PersonnummerException();
         }
     }
@@ -482,7 +482,7 @@ final class Personnummer implements PersonnummerInterface
         $now = new DateTime();
 
         return (int)($parts['fullYear']) <= $now->format('Y') + 1
-                && (int)($parts['fullYear']) > 1870;
+            && (int)($parts['fullYear']) > 1870;
     }
 
     private function setReserveNumberCharForVgr(): void
