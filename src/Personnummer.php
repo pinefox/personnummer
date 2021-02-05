@@ -320,14 +320,30 @@ final class Personnummer implements PersonnummerInterface
         }
     }
 
+    /**
+     * Superset of any other type of reserve number.
+     * @return bool
+     */
     public function isReserveNumber(): bool
+    {
+        return $this->isTNumber() ||
+            $this->isSllReserveNumber() ||
+            $this->isVgrReserveNumber() ||
+            $this->isRvbReserveNumber();
+    }
+
+    /**
+     * Generic reserve number, T/R replaced by value 1.
+     * @return bool
+     */
+    public function isTNumber(): bool
     {
         return $this->reserveNumberCharacter !== null;
     }
 
     public function isVgrReserveNumber(): bool
     {
-        return ($this->reserveNumberCharacter !== null && $this->isVgrReserve);
+        return $this->isVgrReserve;
     }
 
     public function isSllReserveNumber(): bool
