@@ -39,6 +39,7 @@ composer require pinefox/personnummer
 | isFemale             | none            | bool    |
 | isCoordinationNumber | none            | bool    |
 | isReserveNumber      | none            | bool    |
+| isTNumber            | none            | bool    |
 | isVgrReserveNumber   | none            | bool    |
 | isSllReserveNumber   | none            | bool    |
 | isRvbReserveNumber   | none            | bool    |
@@ -60,8 +61,8 @@ When a personnummer is invalid a PersonnummerException is thrown.
 ## Options
 | Option                  | Type | Default | Description                 |
 | ------------------------|:-----|:--------|:---------------------------:|
-| allowCoordinationNumber | bool | true    | Accept coordination numbers |
-| allowReserveNumber      | bool | true    | Accept reserve numbers      |
+| allowCoordinationNumber | bool | true    | Accept coordination numbers |``
+| allowTNumber            | bool | true    | Accept reserve numbers      |
 | allowVgrReserveNumber   | bool | true    | Accept VGR reserve numbers  |
 | allowSllReserveNumber   | bool | true    | Accept SLL reserve numbers  |
 | allowRvbReserveNumber   | bool | true    | Accept RVB reserve numbers  |
