@@ -242,6 +242,16 @@ final class Personnummer implements PersonnummerInterface
         foreach ($letters as $letter) {
             $positionFound = strpos($ssn, $letter);
 
+            // If this is 10 or 11 digits long, the reserve number character should be in 7th position:
+            if (is_numeric($positionFound) && strlen($ssn) < 12 && $positionFound !== 7) {
+                throw new PersonnummerException();
+            }
+
+            // If this is more than 12 digits long, the reserve number character should be in 9th position:
+            if (is_numeric($positionFound) && strlen($ssn) > 12 && $positionFound !== 9) {
+                throw new PersonnummerException();
+            }
+
             if ($positionFound !== false) {
                 return $positionFound;
             }
