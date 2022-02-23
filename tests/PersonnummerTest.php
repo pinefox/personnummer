@@ -426,6 +426,33 @@ class PersonnummerTest extends TestCase
         }
     }
 
+    public function testReserveNumberCharacterIsInRightPlace()
+    {
+        // Second position, wrong:
+        $this->assertThrows(PersonnummerException::class, function () {
+            new Personnummer('000101-1R13');
+        });
+        $this->assertThrows(PersonnummerException::class, function () {
+            new Personnummer('20000101-1R13');
+        });
+
+        // Third position, wrong:
+        $this->assertThrows(PersonnummerException::class, function () {
+            new Personnummer('000101-11R3');
+        });
+        $this->assertThrows(PersonnummerException::class, function () {
+            new Personnummer('20000101-11R3');
+        });
+
+        // Fourth position, wrong:
+        $this->assertThrows(PersonnummerException::class, function () {
+            new Personnummer('000101-112R');
+        });
+        $this->assertThrows(PersonnummerException::class, function () {
+            new Personnummer('20000101-112R');
+        });
+    }
+
     public function testParseTNumber()
     {
         $this->assertEquals(new Personnummer('000101-R220'), Personnummer::parse('000101-R220'));
