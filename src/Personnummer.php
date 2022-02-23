@@ -164,6 +164,11 @@ final class Personnummer implements PersonnummerInterface
         // Remove numeric matches
         $parts = array_filter($match, 'is_string', ARRAY_FILTER_USE_KEY);
 
+        // Only allow these separators:
+        if (! in_array($parts['sep'], ['', '-', '+'], true)) {
+            throw new PersonnummerException();
+        }
+
         if (!empty($parts['century'])) {
             if (date('Y') - intval(strval($parts['century']) . strval($parts['year'])) < 100) {
                 $parts['sep'] = '-';
